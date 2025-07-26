@@ -27,7 +27,8 @@ export const demoUsers: User[] = [
   },
 ]
 
-export const demoTeams: Team[] = [
+// Make these mutable for demo purposes
+const currentDemoTeams: Team[] = [
   {
     id: 1,
     name: "Development Team",
@@ -60,7 +61,7 @@ export const demoTeams: Team[] = [
   },
 ]
 
-export const demoTasks: Task[] = [
+const currentDemoTasks: Task[] = [
   {
     id: 1,
     title: "Setup project structure",
@@ -167,3 +168,27 @@ export const demoTeamMembers: TeamMember[] = [
     user_email: "mike@taskmanager.com",
   },
 ]
+
+export function getDemoTeams(): Team[] {
+  return currentDemoTeams
+}
+
+export function addDemoTeam(team: Team): void {
+  currentDemoTeams.push(team)
+}
+
+export function getDemoTasks(): Task[] {
+  return currentDemoTasks
+}
+
+export function addDemoTask(task: Task): void {
+  currentDemoTasks.push(task)
+}
+
+export function getDemoUserById(userId: number): User | undefined {
+  return demoUsers.find((user) => user.id === userId)
+}
+
+export function getDemoTeamById(teamId: number): Team | undefined {
+  return currentDemoTeams.find((team) => team.id === teamId)
+}

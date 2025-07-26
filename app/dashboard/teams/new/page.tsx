@@ -12,6 +12,8 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Users, ArrowLeft, CheckCircle } from "lucide-react"
+import { addDemoTeam, getDemoTeams } from "@/lib/demo-data" // Import addDemoTeam
+import { getAuthToken } from "@/lib/auth" // Import getAuthToken
 
 export default function NewTeamPage() {
   const [isLoading, setIsLoading] = useState(false)
@@ -33,13 +35,33 @@ export default function NewTeamPage() {
       return
     }
 
+    const user = getAuthToken()
+    if (!user) {
+      setError("User not authenticated. Please log in again.")
+      setIsLoading(false)
+      return
+    }
+
     try {
       // Simulate team creation delay
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      await new Promise((resolve) => setTimeout(resolve, 500))
 
-      // For demo, just redirect back to teams
+      const newTeam = {
+        id: getDemoTeams().length > 0 ? Math.max(...getDemoTeams().map((t) => t.id)) + 1 : 1, // Generate unique ID
+        name,
+        description: description || null,
+        owner_id: user.id,
+        created_at: new Date().toISOString(),
+        member_count: 1, // Owner is the first member
+        task_count: 0,
+        owner_name: user.name,
+      }
+
+      addDemoTeam(newTeam) // Add the new team to our in-memory demo data
+
       router.push("/dashboard/teams")
     } catch (error) {
+      console.error("Failed to create team:", error)
       setError("Failed to create team. Please try again.")
       setIsLoading(false)
     }

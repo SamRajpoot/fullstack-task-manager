@@ -6,8 +6,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Users, CheckSquare, Clock, Plus, TrendingUp } from "lucide-react"
-import { getAuthToken } from "@/lib/auth" // Ensure getAuthToken is used
-import { demoTeams, demoTasks } from "@/lib/demo-data"
+import { getAuthToken } from "@/lib/auth"
+import { getDemoTeams, getDemoTasks } from "@/lib/demo-data" // Use getDemoTeams and getDemoTasks
 import type { Team, Task } from "@/lib/types"
 
 export default function DashboardPage() {
@@ -19,9 +19,9 @@ export default function DashboardPage() {
     const authUser = getAuthToken()
     setUser(authUser)
 
-    // Load demo data
-    setTeams(demoTeams.slice(0, 3))
-    setTasks(demoTasks.slice(0, 5))
+    // Load demo data using the new getter functions
+    setTeams(getDemoTeams().slice(0, 3))
+    setTasks(getDemoTasks().slice(0, 5))
   }, [])
 
   if (!user) return null
