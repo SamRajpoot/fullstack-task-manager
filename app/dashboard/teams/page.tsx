@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Users, Plus, Search, Crown, Calendar, CheckSquare } from "lucide-react"
-import { getAuthToken } from "@/lib/auth" // Use getAuthToken for client-side user
-import { demoTeams } from "@/lib/demo-data"
+import { getAuthToken } from "@/lib/auth"
+import { getDemoTeams } from "@/lib/demo-data" // Use getDemoTeams
 import type { Team } from "@/lib/types"
 
 export default function TeamsPage() {
@@ -19,10 +19,8 @@ export default function TeamsPage() {
   useEffect(() => {
     const authUser = getAuthToken()
     setUser(authUser)
-    // Filter demo teams to only show those owned by or joined by the current user
-    // For simplicity in demo, we'll just show all demo teams for now.
-    // In a real app, this would involve fetching user-specific teams from a backend.
-    setTeams(demoTeams)
+    // Load demo teams using the new getter function
+    setTeams(getDemoTeams())
   }, [])
 
   const filteredTeams = teams.filter(
@@ -31,7 +29,7 @@ export default function TeamsPage() {
       team.description?.toLowerCase().includes(searchTerm.toLowerCase()),
   )
 
-  if (!user) return null // Render nothing until user is loaded (or redirected by layout)
+  if (!user) return null
 
   return (
     <div className="space-y-8">
