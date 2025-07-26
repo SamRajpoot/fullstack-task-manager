@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Users, CheckSquare, Clock, Plus, TrendingUp } from "lucide-react"
-import { getAuthToken } from "@/lib/auth"
+import { getAuthToken } from "@/lib/auth" // Ensure getAuthToken is used
 import { demoTeams, demoTasks } from "@/lib/demo-data"
 import type { Team, Task } from "@/lib/types"
 
@@ -173,7 +173,7 @@ export default function DashboardPage() {
                         task.status === "completed"
                           ? "bg-green-500"
                           : task.status === "in_progress"
-                            ? "bg-orange-500"
+                            ? "bg-blue-500"
                             : "bg-gray-400"
                       }`}
                     />
