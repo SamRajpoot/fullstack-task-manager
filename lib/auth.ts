@@ -51,17 +51,8 @@ export function isAuthenticated(): boolean {
   return getAuthToken() !== null
 }
 
-// Server-side auth check (for compatibility)
+// This function is a placeholder for potential server-side authentication.
+// In the current client-side auth setup, it will always return null.
 export async function getCurrentUser(): Promise<AuthUser | null> {
-  // This is a client-side only implementation
-  // In a real app, this would check server-side session/JWT
   return null
-}
-
-export async function requireAuth(): Promise<AuthUser> {
-  const user = await getCurrentUser()
-  if (!user) {
-    throw new Error("Authentication required")
-  }
-  return user
 }
