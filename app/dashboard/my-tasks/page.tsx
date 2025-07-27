@@ -8,8 +8,8 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { CheckSquare, Search, Filter, Calendar, Clock, Target } from "lucide-react"
-import { getAuthToken } from "@/lib/auth" // Ensure getAuthToken is used
-import { demoTasks } from "@/lib/demo-data"
+import { getAuthToken } from "@/lib/auth"
+import { getDemoTasks } from "@/lib/demo-data" // Use getDemoTasks
 import type { Task } from "@/lib/types"
 
 export default function MyTasksPage() {
@@ -25,7 +25,7 @@ export default function MyTasksPage() {
 
     // Filter tasks assigned to current user (for demo, show all tasks)
     // In a real app, this would filter based on authUser.id
-    setTasks(demoTasks)
+    setTasks(getDemoTasks()) // Load tasks using getter
   }, [])
 
   const filteredTasks = tasks.filter((task) => {
